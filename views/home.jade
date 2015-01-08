@@ -1,0 +1,12 @@
+html
+    head
+        title qrtle
+
+    body
+        h1 qrtle
+        form#create(action='/qr', method='get')
+            input(name='text', type='text', placeholder='text')
+            button Create
+        img#preview
+
+    script(src='/js/base.js')
