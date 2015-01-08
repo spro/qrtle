@@ -18,11 +18,12 @@ app = polar.setup_app
 app.get '/', (req, res) -> res.render 'home'
 
 app.get '/qr', (req, res) ->
-    qr req.query.text, (err, buffer) ->
+    qr req.query.text, req.query, (err, buffer) ->
         res.end buffer
 
 app.get '/qr/:text', (req, res) ->
-    qr req.params.text, (err, buffer) ->
+    qr req.params.text, req.query, (err, buffer) ->
+        console.error err if err
         res.end buffer
 
 app.start()
