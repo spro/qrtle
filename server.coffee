@@ -6,6 +6,14 @@ DEBUG = true
 app = polar.setup_app
     port: 1414
     metaserve: compilers:
+        'css\/(.*)\.css': [
+            require('metaserve/src/compilers/raw/bouncer')
+                base_dir: './static/css'
+                ext: 'bounced.css'
+                enabled: !DEBUG
+            require('metaserve/src/compilers/css/styl')()
+        ]
+
         'js\/(.*)\.js': [
             require('metaserve/src/compilers/raw/bouncer')
                 base_dir: './static/js'
