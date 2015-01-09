@@ -5,3 +5,5 @@ $('#create').on 'submit', (e) ->
 
     encoded = encodeURIComponent $('input[name=text]').val()
     $('#preview').attr 'src', '/qr/' + encoded
+
+$('input').focus()
