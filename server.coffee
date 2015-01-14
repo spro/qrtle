@@ -1,7 +1,7 @@
 qr = require './qr'
 polar = require 'polar'
 
-DEBUG = true
+DEBUG = process.env.QRTLE_DEBUG
 
 app = polar.setup_app
     port: 1414
