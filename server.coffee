@@ -6,21 +6,17 @@ DEBUG = process.env.QRTLE_DEBUG
 app = polar.setup_app
     port: 1414
     metaserve: compilers:
-        'css\/(.*)\.css': [
-            require('metaserve/src/compilers/raw/bouncer')
+        css: [
+            require('metaserve-bouncer')
                 base_dir: './static/css'
-                ext: 'bounced.css'
                 enabled: !DEBUG
-            require('metaserve/src/compilers/css/styl')()
+            require('metaserve-css-styl')()
         ]
-
-        'js\/(.*)\.js': [
-            require('metaserve/src/compilers/raw/bouncer')
+        js: [
+            require('metaserve-bouncer')
                 base_dir: './static/js'
-                ext: 'bounced.js'
                 enabled: !DEBUG
-            require('metaserve/src/compilers/js/browserify-coffee-jsx')
-                ext: 'coffee'
+            require('metaserve-js-coffee-reactify')(ext: 'coffee')
         ]
 
 app.get '/', (req, res) -> res.render 'home'
