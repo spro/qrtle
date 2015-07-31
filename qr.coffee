@@ -10,10 +10,22 @@ qr.QRCodeDraw.prototype.color.dark = '#000000'
 
 qr_opts = {errorCorrectLevel: "minimum"}
 
+makeOpts = (opts) ->
+    _.extend({}, mapobj(opts, tryparse), qr_opts)
+
 tryparse = (key, value) ->
     [key, parseInt value]
 
-module.exports = (s, opts, cb) ->
-    qr.draw s, _.extend({}, mapobj(opts, tryparse), qr_opts), (err, canvas) ->
-        cb err, err? || canvas.toBuffer()
+array = (s, opts, cb) ->
+    qr.drawBitArray s, makeOpts(opts), (err, bits) ->
+        cb err, bits
+
+draw = (s, opts, cb) ->
+    qr.draw s, makeOpts(opts), (err, canvas) ->
+        if err
+            cb err
+        else
+            cb null, canvas.toBuffer()
+
+module.exports = {draw, array}
 
